@@ -39,7 +39,7 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
     }
 
     @Override
-    public void getBPM() {
+    public int getBPM() {
         return this.bpm;
     }
 

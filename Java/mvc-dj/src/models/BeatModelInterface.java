@@ -9,7 +9,7 @@ public interface BeatModelInterface {
 
     void setBPM(int bpm);
 
-    void getBPM();
+    int getBPM();
 
     void registerObserver(BeatObserver beatObserver);
 
