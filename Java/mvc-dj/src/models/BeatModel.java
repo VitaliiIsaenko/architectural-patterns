@@ -1,17 +1,22 @@
 package models;
 
 import models.BeatModelInterface;
+import views.BPMObserver;
+import views.BeatObserver;
 
 import javax.sound.midi.MetaEventListener;
 import javax.sound.midi.MetaMessage;
 import javax.sound.midi.Sequencer;
+import javax.sound.midi.Track;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BeatModel implements BeatModelInterface, MetaEventListener {
     Sequencer sequencer;
     List<BeatObserver> beatObservers = new ArrayList<>();
     List<BPMObserver> bpmobservers = new ArrayList<>();
     int bpm;
+    Track track;
 
     @Override
     public void initialize() {
@@ -43,28 +48,36 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
         return this.bpm;
     }
 
-    @Override
     public void registerObserver(BeatObserver beatObserver) {
-
+        beatObservers.add(beatObserver);
     }
 
-    @Override
     public void removeObserver(BeatObserver beatObserver) {
-
+        beatObservers.remove(beatObserver);
     }
 
-    @Override
+    public void notifyBeatObservers() {
+        beatObservers.forEach(bo -> bo.updateBeat());
+    }
+
     public void registerObserver(BPMObserver bpmObserver) {
-
+        bpmobservers.add(bpmObserver);
     }
 
-    @Override
     public void removeObserver(BPMObserver bpmObserver) {
+        bpmobservers.remove(bpmObserver);
+    }
 
+    public void notifyBPMObservers() {
+        bpmobservers.forEach(bpmo -> bpmo.updateBPM());
     }
 
     @Override
     public void meta(MetaMessage meta) {
-
+        if (message.getType() == 47) {
+            beatEvent();
+            sequencer.start();
+            setBPM(getBPM());
+        }
     }
 }

@@ -12,7 +12,7 @@ public class DJView implements ActionListener, BeatObserver, BPMObserver {
     ControllerInterface controller;
     JFrame viewFrame;
     JPanel viewPanel;
-    BeatBar beatBar;
+    JProgressBar beatBar;
     JLabel bpmOutputLabel;
     JTextField bpmTextField;
     JButton increaseBPMButton;

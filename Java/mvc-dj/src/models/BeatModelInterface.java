@@ -1,5 +1,8 @@
 package models;
 
+import views.BPMObserver;
+import views.BeatObserver;
+
 public interface BeatModelInterface {
     void initialize();
 
